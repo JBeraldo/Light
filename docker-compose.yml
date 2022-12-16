@@ -1,0 +1,40 @@
+services:
+    # image project
+    app:
+        container_name: light-laravel
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: php81
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - redis
+        networks:
+            - light-network
+
+    # nginx
+    nginx:
+        container_name: light-nginx
+        image: nginx:alpine
+        restart: unless-stopped
+        ports:
+            - "80:80"
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx/:/etc/nginx/conf.d/
+        networks:
+            - light-network
+
+    # redis
+    redis:
+        container_name: light-redis
+        image: redis:latest
+        networks:
+            - light-network
+
+networks:
+    light-network:
+        driver: bridge
