@@ -21,6 +21,24 @@ Para executar o projeto após clonar é nescessário possuir o docker instalado 
 
 ` docker compose up -d`
 
-na pasta do projeto, após iniciado instale as dependencias do composer utilizado
+Na pasta do projeto, após iniciado instale as dependencias do composer utilizado
 
 ` composer install `
+
+Tambem é nescessario executar comando de geração da chave de api
+
+`php artisan key:generate`
+
+Após duplicar normalmente a .env tambem é nescessário criar uma env de testes com o nome 
+
+` env.testing`
+
+nescessário definir o APP_ENV como testing dentro do arquivo
+
+forneça tambem a chave da api do tinypng em ambas as ENVs
+
+para fim de teste use
+
+` php artisan test --env=testing`
+
+Na pasta do projeto
